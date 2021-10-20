@@ -1,0 +1,28 @@
+{
+  "name": "onetech-assessement",
+  "version": "1.0.0",
+  "description": "a game test",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saabaaah/onetech-assessement.git"
+  },
+  "keywords": [
+    "test",
+    "onetech"
+  ],
+  "author": "sabah HM",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saabaaah/onetech-assessement/issues"
+  },
+  "homepage": "https://github.com/saabaaah/onetech-assessement#readme",
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "express": "^4.17.1"
+  }
+}

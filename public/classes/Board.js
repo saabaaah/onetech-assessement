@@ -14,11 +14,9 @@ class Board{
         this._nbColors = nbColors;
         this._grid = grid;
         // if grid is empty, init grid randomly
-        console.log("grid : ", grid, this._grid);
         if(grid.length == 0)
             this.init();
         this._activeColor = this._grid[0][0].color;
-        console.log("grid : ", grid, this._grid);
         
     }
     // ----- toString ----- //
@@ -44,7 +42,6 @@ class Board{
         // init boad randomly
         for (let i = 0; i < this._dimension; i++) {
             this._grid.push([]);
-            console.log("pushing data", this._grid);
 
             for (let j = 0; j < this._dimension; j++) {
                 // choose random position color
@@ -52,12 +49,14 @@ class Board{
                 this._grid[i].push(new Tile(COLOR_HEX[pos], new Position(i, j)));
             }
         }
-        console.log(this._grid);
     }
 
     move(){
-        // play a move
+        // play a move, & return the chosen color 
+        let chosen = "";
 
+
+        return chosen;
     }
 }
 

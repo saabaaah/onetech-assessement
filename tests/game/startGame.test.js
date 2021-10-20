@@ -2,6 +2,7 @@
 const assert = require("assert");
 const Board = require("../../public/classes/Board").Board;
 const Position = require("../../public/classes/Board").Position;
+const Tile = require("../../public/classes/Board").Tile;
 const COLOR_HEX = require("../../public/classes/Board").COLOR_HEX;
 const Game = require("../../public/classes/Game").Game;
 const gameInstance = require("../../public/classes/Game").gameInstance;
@@ -20,7 +21,7 @@ const grid = [];
 for (let i = 0; i < colorsGrid.length; i++) {
     grid.push([]);
     for (let j = 0; j < colorsGrid[i].length; j++) {
-        grid[i].push(new Tile(colors[i][j], new Position(i, j)));
+        grid[i].push(new Tile(colorsGrid[i][j], new Position(i, j)));
     }
 }
 const initalData = {"dimension": 6, "nbColors": 3, "grid": grid};
@@ -39,16 +40,16 @@ describe('game as in given example', function() {
     });   
 
     it(`first move should decide on "BLUE" color`, function() {
-        assert.deepEqual(game.move, grid[0][0].color);
+        assert.deepEqual(game.move(), "BLUE");
     });
     it(`second move should decide on "ORANGE" color`, function() {
-        assert.deepEqual(game.move, "ORANGE");
+        assert.deepEqual(game.move(), "ORANGE");
     });
     it(`third move should decide on "RED" color`, function() {
-        assert.deepEqual(game.move, "RED");
+        assert.deepEqual(game.move(), "RED");
     });
     it(`fourth move should decide on "BLUE" color`, function() {
-        assert.deepEqual(game.move, "BLUE");
+        assert.deepEqual(game.move(), "BLUE");
     });
     
 });  

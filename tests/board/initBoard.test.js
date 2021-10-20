@@ -17,7 +17,7 @@ describe('board initial state', function() {
         assert.strictEqual(board.nbColors, initalData.nbColors);
     });    
     
-    it(`grid initialized randomly, so different from ${initalData.grid} `, function() {
+    it(`grid initialized randomly, so not empty`, function() {
         expect(board.grid !== initalData.grid)
     });
 });  

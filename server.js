@@ -1,6 +1,6 @@
 
 // Starting Server using express
-const express = require("express");
+import express from "express";
 
 console.log("starting ...");
 
@@ -10,7 +10,7 @@ app.use(express.static(__dirname + "/public"));
  
 console.log("express imported ...");
 
-app.listen(6973, () => {
+app.listen(6970, () => {
   console.log("Listening on port 6973...");
   
 });

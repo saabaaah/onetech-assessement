@@ -25,8 +25,11 @@ class Game{
     
     // start the game , 
     startGame(){
-        // start playing ...
-
+        // start playing until the board is filled
+        let i = 0;
+        while (! this._board.isFull()) {
+            this._board.move();
+        }
     }
 
     set board(board){

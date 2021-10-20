@@ -35,21 +35,21 @@ describe('game as in given example', function() {
     game.board = board;
 
     it(`first set should include the upper left tile`, function() {
-        position = new Position(0, 0);
-        expect(game.connectedSet.includes(position));
+        let position = board.grid[0][0].position;
+        expect(board.activeTiles.includes(position));
     });   
 
     it(`first move should decide on "BLUE" color`, function() {
-        assert.deepEqual(boad.move(), "BLUE");
+        assert.deepEqual(board.move(), "BLUE");
     });
     it(`second move should decide on "ORANGE" color`, function() {
-        assert.deepEqual(boad.move(), "ORANGE");
+        assert.deepEqual(board.move(), "ORANGE");
     });
     it(`third move should decide on "RED" color`, function() {
-        assert.deepEqual(boad.move(), "RED");
+        assert.deepEqual(board.move(), "RED");
     });
     it(`fourth move should decide on "BLUE" color`, function() {
-        assert.deepEqual(boad.move(), "BLUE");
+        assert.deepEqual(board.move(), "BLUE");
     });
-    
+
 });  

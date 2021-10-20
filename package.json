@@ -3,9 +3,22 @@
   "version": "1.0.0",
   "description": "a game test",
   "main": "server.js",
+  "type": "commonjs",
   "scripts": {
-    "test": "test",
-    "start": "node server.js"
+    "start": "node -r esm server.js",
+    "test": "jest",
+    "coverage": "jest --coverage"
+  },
+  "jest": {
+    "verbose": true,
+    "testEnvironment": "node",
+    "testRegex": "/tests/.*\\.(test|spec)?\\.(js)$",
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
   },
   "repository": {
     "type": "git",
@@ -23,6 +36,10 @@
   "homepage": "https://github.com/saabaaah/onetech-assessement#readme",
   "devDependencies": {
     "@types/express": "^4.17.13",
-    "express": "^4.17.1"
+    "@types/jest": "^27.0.2",
+    "@types/node": "14.0.13",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "jest": "^27.3.1"
   }
 }

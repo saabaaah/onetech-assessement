@@ -6,6 +6,7 @@ class Board{
      _nbColors;
      _grid;
      _activeColor;
+     _activeTiles = []; // active tiles connected
 
     // ----- constructor ----- //
     constructor(dimension=6, nbColors=3, grid = []){
@@ -16,12 +17,16 @@ class Board{
         // if grid is empty, init grid randomly
         if(grid.length == 0)
             this.init();
+
+        // take the upper left Tile position as active tile, and its color as the activeColor
+        this._activeTiles.push(this._grid[0][0].position);
         this._activeColor = this._grid[0][0].color;
         
     }
+
     // ----- toString ----- //
     format(){
-        return `Board : [dim=${this._dimension}, nbCol=${this._nbColors} ]`;
+        return `Board : [dim=${this._dimension}, nbColors=${this._nbColors} , Color=${this._activeColor}, nbActiveTiles=${this._activeTiles.length}  ]`;
     }
 
     // ----- getters ----- //
@@ -53,10 +58,56 @@ class Board{
 
     move(){
         // play a move, & return the chosen color 
-        let chosen = "";
+        let concernedTiles = [];
+        COLOR_HEX.array.forEach(element => { concernedTiles.push({"occ":0, "listPos":[]}) });
 
+        // recursive function to check connected tiles
+        function computeColor(pos){
+            const neighbors = this._getTileNeighborsOfColor(pos, this._grid[pos.x][pos.y].color);
+            if (neighbors.length == 0){
+                return;
+            }else{
+                neighbors.forEach((element) => computeColor(element.position));
+            }
+        }
+
+
+        let chosen = "";
+        for (let i = this._activeTiles.length - 1; i >= 0; i--) {
+            const neighbors = this._getTileNeighbors(this._activeTiles[i].position);
+            for (let neigh = 0; neigh < neighbors.length; neigh++) {
+                // TODO --> computeColor call           
+            }
+
+        }
+        // update the origin tiles that are connected 
+        for (let i = this._activeTiles.length - 1; i >= 0; i--) {
+            // TODO : Update new activeTiles list & Update their color to the chosen one
+        }
 
         return chosen;
+    }
+
+    // get Tile neiphborhood
+    _getTileNeighbors(pos){
+        let listNeighbors = [];
+        // check if neighbors exist (not out of borders)
+        try{ listNeighbors.push(this._grid[pos.x-1][y]); }catch(ex){}
+        try{ listNeighbors.push(this._grid[pos.x+1][y]); }catch(ex){}
+        try{ listNeighbors.push(this._grid[pos.x][y-1]); }catch(ex){}
+        try{ listNeighbors.push(this._grid[pos.x][y+1]); }catch(ex){}
+        return listNeighbors;
+    }
+
+    // get Tile neiphborhood having the given color
+    _getTileNeighborsOfColor(pos, color){
+        let listNeighbors = this._getTileNeighbors(pos);        
+        return listNeighbors.filter((pos) => this._grid[pos.x][pos.y].color === color);
+    }    
+    // get Tile neiphborhood having only different color
+    _getTileNeighborsOfDifferentColor(pos, color){
+        let listNeighbors = this._getTileNeighbors(pos);        
+        return listNeighbors.filter((pos) => this._grid[pos.x][pos.y].color != color);
     }
 }
 

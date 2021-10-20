@@ -5,6 +5,7 @@ class Board{
      _dimension;
      _nbColors;
      _grid;
+     _activeColor;
 
     // ----- constructor ----- //
     constructor(dimension=6, nbColors=3, grid = []){
@@ -13,8 +14,11 @@ class Board{
         this._nbColors = nbColors;
         this._grid = grid;
         // if grid is empty, init grid randomly
-        if(grid == [])
+        console.log("grid : ", grid, this._grid);
+        if(grid.length == 0)
             this.init();
+        this._activeColor = this._grid[0][0].color;
+        console.log("grid : ", grid, this._grid);
         
     }
     // ----- toString ----- //
@@ -26,17 +30,29 @@ class Board{
     get dimension(){ return this._dimension; }
     get nbColors(){ return this._nbColors; }
     get grid(){ return this._grid; }
+    get activeColor(){ return this._activeColor; }
 
     // ----- setters ----- //
     set dimension(value) { this._dimension = value; }    
     set nbColors(value) { this._nbColors = value; }    
     set grid(value) { this._grid = value; }
+    set activeColor(value) { this._activeColor = value; }
 
 
     // ----- methods ----- //
     init(){
         // init boad randomly
+        for (let i = 0; i < this._dimension; i++) {
+            this._grid.push([]);
+            console.log("pushing data", this._grid);
 
+            for (let j = 0; j < this._dimension; j++) {
+                // choose random position color
+                const pos = Math.floor(Math.random() * this._nbColors);
+                this._grid[i].push(new Tile(COLOR_HEX[pos], new Position(i, j)));
+            }
+        }
+        console.log(this._grid);
     }
 
     move(){

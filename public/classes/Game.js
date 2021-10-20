@@ -1,12 +1,12 @@
 
 
-// ------------- Class : Game -> Sigleton -------------- //
+// ------------- Class : Game  -------------- //
 class Game{
     // ----- attributes ----- //
     static _instance;
     _board;
-    
-
+    _connectedSet = [];
+    _actualColor;
     // ----- constructor ----- //
     constructor(){
         try{
@@ -32,7 +32,10 @@ class Game{
     set board(board){
         // set  board data, with given board
         this._board = board;
+        this._actualColor = this._board.activeColor;
     }
+
+    set connectedSet(connectedSet){ this._connectedSet = connectedSet}
 
     // ----- toString ----- //
     format(){

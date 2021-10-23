@@ -64,7 +64,7 @@ class Board{
     move(){
         // play a move, & return the chosen color 
         let concernedTiles = {};
-        let treatedTiles = [...this._activeTiles];
+        var treatedTiles = [...this._activeTiles];
 
         COLOR_HEX.forEach(element => { concernedTiles[element] = {
                                                             "occ":0, 
@@ -72,9 +72,16 @@ class Board{
                                                             }});
         let self = this;
         // recursive function to check connected tiles
+        //console.log("out treatedTiles:", treatedTiles.length);
         function computeColor(pos){
             let tmp_tile = self._grid[pos.x][pos.y];
             const neighbors = self._getTileNeighborsOfColor(pos, self._grid[pos.x][pos.y].color);
+            //console.log("inside -> treatedTiles:", treatedTiles.length);
+
+            // check if this position is already treated
+            if(treatedTiles.filter(e => e.x === pos.x && e.y == pos.y).length > 0){
+                return;
+            }
             // mark this tile as treated
             try{
                 treatedTiles.push(tmp_tile.position);
@@ -91,7 +98,7 @@ class Board{
                 // check each neighbor
                 for (let i_neigh = 0; i_neigh < neighbors.length; i_neigh++) {
                     const element = neighbors[i_neigh];
-                    if (!treatedTiles.includes(element.position)){
+                    if (treatedTiles.filter(e => e.x === element.position.x && e.y == element.position.y).length == 0){
                         computeColor(element.position) 
                     }
                 }
@@ -114,6 +121,7 @@ class Board{
 
         let maxValue = Math.max(... arrConcernedTiles);
         let chosen = COLOR_HEX[arrConcernedTiles.indexOf(maxValue)];
+        //console.log("out treatedTiles:", treatedTiles.length, " maxValue : ", maxValue, "chosen: ", chosen);
 
         // update the origin tiles that are connected 
         for (let i = this._activeTiles.length - 1; i >= 0; i--) {

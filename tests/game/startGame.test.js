@@ -42,9 +42,11 @@ describe('game as in given example', function() {
     it(`first move should decide on "BLUE" color`, function() {
         assert.deepEqual(board.move(), "BLUE");
     });
+
     it(`second move should decide on "ORANGE" color`, function() {
         assert.deepEqual(board.move(), "ORANGE");
     });
+    
     it(`third move should decide on "RED" color`, function() {
         assert.deepEqual(board.move(), "RED");
     });

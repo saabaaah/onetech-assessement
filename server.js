@@ -10,7 +10,7 @@ app.use(express.static(__dirname + "/public"));
  
 console.log("express imported ...");
 
-app.listen(6970, () => {
+app.listen(6973, () => {
   console.log("Listening on port 6973...");
   
 });

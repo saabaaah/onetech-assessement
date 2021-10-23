@@ -24,6 +24,9 @@ class Board{
 
         // take the upper left Tile position as active tile, and its color as the activeColor
         this._activeTiles.push(this._grid[0][0].position);
+        // add all tiles that are neighbors to the 0,0 having the same color
+        let tmpActive = this._getTileNeighborsOfColor(this._grid[0][0].position, this._grid[0][0].color.code);
+        this._activeTiles = this._activeTiles.concat(tmpActive.map((tile) => tile.position));
         this._activeColor = this._grid[0][0].color;
         
     }
@@ -139,12 +142,12 @@ class Board{
                 }
             }
         }
-
+        // update active tiles colors
         for (let i = 0; i < this._activeTiles.length; i++) {
             let pos = this._activeTiles[i];
             // change this Tile's color on the grid
             this.grid[pos.x][pos.y].color = new Color(colorRank, chosen);
-            console.log(pos, " -->", chosen, this._activeTiles.length);
+            //console.log(pos, " -->", chosen, this._activeTiles.length);
         }
 
         this.activeColor = new Color(colorRank, chosen);

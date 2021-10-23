@@ -8,8 +8,10 @@ function loadGameHTML(){
 
 // start a play on the game 
 function playGame(){
-    game.play();
-    loadGameHTML();
+    if(!game.endOfGame()){
+        game.play();
+        loadGameHTML();
+    }
 }
 
 // ---> inital Data object

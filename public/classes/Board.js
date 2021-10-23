@@ -129,14 +129,23 @@ class Board{
         for (let i = this._activeTiles.length - 1; i >= 0; i--) {
             // TODO : Update new activeTiles list & Update their color to the chosen one
             for (let i_tile = 0; i_tile < concernedTiles[chosen]["listPos"].length; i_tile++) {
+                let pos = concernedTiles[chosen]["listPos"][i_tile];
                 if (this._activeTiles.filter(
-                                    e => e.x === concernedTiles[chosen]["listPos"][i_tile].x 
-                                    && e.y == concernedTiles[chosen]["listPos"][i_tile].y
+                                    e => e.x === pos.x 
+                                    && e.y == pos.y
                                 ).length == 0){
-                    this._activeTiles.push(concernedTiles[chosen]["listPos"][i_tile]);
+                    this._activeTiles.push(pos);
                 }
             }
         }
+
+        for (let i = 0; i < this._activeTiles.length; i++) {
+            let pos = this._activeTiles[i];
+            // change this Tile's color on the grid
+            this.grid[pos.x][pos.y].color = new Color(colorRank, chosen);
+            console.log(pos, " -->", chosen, this._activeTiles.length);
+        }
+                    
         // return the chosen color as a Color Object
         return new Color(colorRank, chosen);
     }

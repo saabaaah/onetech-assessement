@@ -38,7 +38,7 @@ describe('game as in given example', function() {
 
     it(`The board has one single color`, function() {
         // at the end, the game board is colored all in one color only.
-        //game.startGame();
+        game.startGame();
 
         let i = Math.floor(Math.random()*board.dimension);
         let j = Math.floor(Math.random()*board.dimension);

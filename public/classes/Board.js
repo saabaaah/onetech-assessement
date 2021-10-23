@@ -1,3 +1,6 @@
+const { exit } = require("process");
+const { runInThisContext } = require("vm");
+
 // ------------ COLOR_HEX : List of colors ------------ //
 const COLOR_HEX = ["RED", "ORANGE", "YELLOW", "GREEN", "BLUE", "INDIGO", "VIOLET", "PURPLE"];
 
@@ -145,9 +148,11 @@ class Board{
             this.grid[pos.x][pos.y].color = new Color(colorRank, chosen);
             console.log(pos, " -->", chosen, this._activeTiles.length);
         }
+
+        this.activeColor = new Color(colorRank, chosen);
                     
         // return the chosen color as a Color Object
-        return new Color(colorRank, chosen);
+        return this.activeColor;
     }
 
     // get Tile neiphborhood
@@ -176,6 +181,7 @@ class Board{
 
     // check if board is all full
     isFull(){
+        console.log("isFull : ", this._activeTiles.length, this._dimension*this._dimension);
         return this._activeTiles.length == this._dimension*this._dimension;
     }
 

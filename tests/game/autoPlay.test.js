@@ -10,10 +10,10 @@ const gameInstance = require("../../public/classes/Game").gameInstance;
 
 // ---> inital Data object
 const colorsGrid = [
-    ["RED",     "ORANGE",   "RED",      "BlUE",     "RED",      "ORANGE"],
+    ["RED",     "ORANGE",   "RED",      "BLUE",     "RED",      "ORANGE"],
     ["BLUE",    "RED",      "BLUE",     "ORANGE",   "BLUE",     "ORANGE"],
     ["BLUE",    "BLUE",     "ORANGE",   "BLUE",     "BLUE",     "BLUE"],
-    ["BLUE",    "ORANGE",   "RED",      "BlUE",     "RED",      "ORANGE"],
+    ["BLUE",    "ORANGE",   "RED",      "BLUE",     "RED",      "ORANGE"],
     ["BLUE",    "ORANGE",   "RED",      "ORANGE",   "ORANGE",   "ORANGE"],
     ["RED",     "BLUE",     "RED",      "ORANGE",   "BLUE",     "RED"],
 ];

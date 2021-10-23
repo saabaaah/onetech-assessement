@@ -35,7 +35,7 @@ class Game{
 
     // play a single tour
     play(){
-        this._actualColor = this._board.move();
+        this._board.move();
         this._nbMoves ++;
     }
 

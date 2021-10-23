@@ -47,6 +47,9 @@ class Game{
 
     set connectedSet(connectedSet){ this._connectedSet = connectedSet}
 
+    // check if end of game
+    endOfGame(){ return this._board.isFull();}
+
     // ----- toString ----- //
     format(){
         return `Game : [ ${this._board.format()} ]`;
@@ -55,6 +58,7 @@ class Game{
         return "<h3>AUTOPLAYEDGAME | DIMENSION: "+this._board.dimension+" | NB_COLORS: "+this._board.nbColors+" | ACTIVE COLOR: "+this._actualColor.toHtml()+" | MOVES: "+this._nbMoves+"</h3>"
                 +"<div class=\"game-board\" >"+this._board.toHtml()+"</div>";
     }
+
 }
 
 // get the instance

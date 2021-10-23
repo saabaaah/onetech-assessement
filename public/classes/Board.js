@@ -182,7 +182,6 @@ class Board{
 
     // check if board is all full
     isFull(){
-        console.log("isFull : ", this._activeTiles.length, this._dimension*this._dimension);
         return this._activeTiles.length == this._dimension*this._dimension;
     }
 

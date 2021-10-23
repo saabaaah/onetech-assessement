@@ -162,7 +162,7 @@ class Board{
     _getTileNeighborsOfDifferentColor(pos, color){
         let listNeighbors = this._getTileNeighbors(pos);        
         return listNeighbors.filter((element) => element != undefined && 
-                                    this._grid[element.position.x][element.position.y].color.code != color );
+                                    this._grid[element.position.x][element.position.y].color.code !== color );
     }
 
     // check if board is all full

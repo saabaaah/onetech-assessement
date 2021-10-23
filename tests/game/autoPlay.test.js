@@ -3,6 +3,7 @@ const assert = require("assert");
 const Board = require("../../public/classes/Board").Board;
 const Position = require("../../public/classes/Board").Position;
 const Tile = require("../../public/classes/Board").Tile;
+const Color = require("../../public/classes/Board").Color;
 const COLOR_HEX = require("../../public/classes/Board").COLOR_HEX;
 const Game = require("../../public/classes/Game").Game;
 const gameInstance = require("../../public/classes/Game").gameInstance;
@@ -21,7 +22,7 @@ const grid = [];
 for (let i = 0; i < colorsGrid.length; i++) {
     grid.push([]);
     for (let j = 0; j < colorsGrid[i].length; j++) {
-        grid[i].push(new Tile(colorsGrid[i][j], new Position(i, j)));
+        grid[i].push(new Tile(new Color(COLOR_HEX.indexOf(colorsGrid[i][j]), colorsGrid[i][j]), new Position(i, j)));
     }
 }
 const initalData = {"dimension": 6, "nbColors": 3, "grid": grid};
@@ -42,9 +43,9 @@ describe('game as in given example', function() {
         let i = Math.floor(Math.random()*board.dimension);
         let j = Math.floor(Math.random()*board.dimension);
         //console.log("i,j : ", i, j);
-        let i_color = COLOR_HEX.indexOf(board.grid[i][j].color);
-        //console.log("colors : ", i_color);
-        expect(i_color == game.board.activeColor);
+        let i_color = COLOR_HEX.indexOf(board.grid[i][j].color.code);
+        console.log("colors : ", board);
+        expect(i_color == board.activeColor.code);
     });   
 
 });  

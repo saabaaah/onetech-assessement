@@ -121,13 +121,19 @@ class Board{
 
         let maxValue = Math.max(... arrConcernedTiles);
         let chosen = COLOR_HEX[arrConcernedTiles.indexOf(maxValue)];
-        //console.log("out treatedTiles:", treatedTiles.length, " maxValue : ", maxValue, "chosen: ", chosen);
+        console.log("out treatedTiles:", treatedTiles.length, " maxValue : ", maxValue, "chosen: ", chosen);
+        console.log("out this.activeTiles:", this.activeTiles, this.activeTiles.length);
 
         // update the origin tiles that are connected 
         for (let i = this._activeTiles.length - 1; i >= 0; i--) {
             // TODO : Update new activeTiles list & Update their color to the chosen one
             for (let i_tile = 0; i_tile < concernedTiles[chosen]["listPos"].length; i_tile++) {
-                this._activeTiles.push(concernedTiles[chosen]["listPos"][i_tile]);
+                if (this._activeTiles.filter(
+                                    e => e.x === concernedTiles[chosen]["listPos"][i_tile].x 
+                                    && e.y == concernedTiles[chosen]["listPos"][i_tile].y
+                                ).length == 0){
+                    this._activeTiles.push(concernedTiles[chosen]["listPos"][i_tile]);
+                }
             }
         }
         return chosen;

@@ -1,7 +1,16 @@
 
-// TODO set a User interface to represent the game !
+// load game data
+function loadGameHTML(){
+    let gameDiv = document.getElementById("game");
+    gameDiv.innerHTML = game.toHtml() + 
+                        "<button class=\"btn-play\" id=\"btn-play\" onclick=\"playGame()\"> play </button>";
+}
 
-
+// start a play on the game 
+function playGame(){
+    game.play();
+    loadGameHTML();
+}
 
 // ---> inital Data object
 const colorsGrid = [
@@ -25,6 +34,6 @@ const initalData = {"dimension": 6, "nbColors": 3, "grid": grid};
 const game = gameInstance;
 //game.startGame()
 
-let gameDiv = document.getElementById("game");
-gameDiv.innerHTML = "Welcome to the game, please run 'npm test' to see the test results!";
 
+// load game 
+loadGameHTML();

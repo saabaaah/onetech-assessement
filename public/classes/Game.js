@@ -7,6 +7,7 @@ class Game{
     _board;
     _connectedSet = [];
     _actualColor;
+    _nbMoves = 0;
     // ----- constructor ----- //
     constructor(){
         try{
@@ -16,6 +17,7 @@ class Game{
         }catch(ex){
             this._board = new Board();
         }
+        this._actualColor = this._board.activeColor;
     }
 
     // ----- public methods ----- //
@@ -26,10 +28,15 @@ class Game{
     // start the game , 
     startGame(){
         // start playing until the board is filled
-        let i = 0;
         while (! this._board.isFull()) {
-            this._board.move();
+            this.play();
         }
+    }
+
+    // play a single tour
+    play(){
+        this._actualColor = this._board.move();
+        this._nbMoves ++;
     }
 
     set board(board){
@@ -44,7 +51,12 @@ class Game{
     format(){
         return `Game : [ ${this._board.format()} ]`;
     }
+    toHtml(){
+        return "<h3>AUTOPLAYEDGAME | DIMENSION: "+this._board.dimension+" | NB_COLORS: "+this._board.nbColors+" | ACTIVE COLOR: "+this._actualColor.toHtml()+" | MOVES: "+this._nbMoves+"</h3>"
+                +"<div class=\"game-board\" >"+this._board.toHtml()+"</div>";
+    }
 }
+
 // get the instance
 const gameInstance = Game.Instance;
 

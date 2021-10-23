@@ -1,0 +1,17 @@
+
+#game{
+    text-align: center;
+}
+.game-board{
+    align-items: center;
+    vertical-align: center;
+    margin: 0 auto;
+}
+.game-grid{
+    margin: 0 auto;
+}
+.game-tile{
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+}

@@ -56,7 +56,7 @@ class Board{
             for (let j = 0; j < this._dimension; j++) {
                 // choose random position color
                 const pos = Math.floor(Math.random() * this._nbColors);
-                this._grid[i].push(new Tile(COLOR_HEX[pos], new Position(i, j)));
+                this._grid[i].push(new Tile(new Color(pos, COLOR_HEX[pos]), new Position(i, j)));
             }
         }
     }
@@ -75,7 +75,7 @@ class Board{
         //console.log("out treatedTiles:", treatedTiles.length);
         function computeColor(pos){
             let tmp_tile = self._grid[pos.x][pos.y];
-            const neighbors = self._getTileNeighborsOfColor(pos, self._grid[pos.x][pos.y].color);
+            const neighbors = self._getTileNeighborsOfColor(pos, self._grid[pos.x][pos.y].color.code);
             //console.log("inside -> treatedTiles:", treatedTiles.length);
 
             // check if this position is already treated
@@ -85,10 +85,10 @@ class Board{
             // mark this tile as treated
             try{
                 treatedTiles.push(tmp_tile.position);
-                concernedTiles[tmp_tile.color]["occ"] ++;
-                concernedTiles[tmp_tile.color]["listPos"].push(tmp_tile.position);
+                concernedTiles[tmp_tile.color.code]["occ"] ++;
+                concernedTiles[tmp_tile.color.code]["listPos"].push(tmp_tile.position);
             }catch (ex){
-                console.log("PROBLEM UPDATING LIST...");
+                console.log("PROBLEM UPDATING LIST...", ex);
             }
 
             // check for neiphbors 
@@ -108,7 +108,7 @@ class Board{
             const position = this._activeTiles[i_tile];
             const neighbors = this._getTileNeighborsOfDifferentColor(
                                                     position,
-                                                    this._grid[position.x][position.y].color);
+                                                    this._grid[position.x][position.y].color.code);
 
             for (let i_neighbor = 0; i_neighbor < neighbors.length; i_neighbor++) {
                 // TODO --> computeColor call  
@@ -120,9 +120,10 @@ class Board{
         let arrConcernedTiles = Object.keys( concernedTiles ).map(function ( key ) { return concernedTiles[key]["occ"]; });
 
         let maxValue = Math.max(... arrConcernedTiles);
-        let chosen = COLOR_HEX[arrConcernedTiles.indexOf(maxValue)];
-        console.log("out treatedTiles:", treatedTiles.length, " maxValue : ", maxValue, "chosen: ", chosen);
-        console.log("out this.activeTiles:", this.activeTiles, this.activeTiles.length);
+        let colorRank = arrConcernedTiles.indexOf(maxValue);
+        let chosen = COLOR_HEX[colorRank];
+        //console.log("out treatedTiles:", treatedTiles.length, " maxValue : ", maxValue, "chosen: ", chosen);
+        //console.log("out this.activeTiles:", this.activeTiles, this.activeTiles.length);
 
         // update the origin tiles that are connected 
         for (let i = this._activeTiles.length - 1; i >= 0; i--) {
@@ -136,7 +137,8 @@ class Board{
                 }
             }
         }
-        return chosen;
+        // return the chosen color as a Color Object
+        return new Color(colorRank, chosen);
     }
 
     // get Tile neiphborhood
@@ -154,21 +156,34 @@ class Board{
     _getTileNeighborsOfColor(pos, color){
         let listNeighbors = this._getTileNeighbors(pos);    
         return listNeighbors.filter((element) => element != undefined && 
-                                    this._grid[element.position.x][element.position.y].color === color );
+                                    this._grid[element.position.x][element.position.y].color.code === color );
     }    
     // get Tile neiphborhood having only different color
     _getTileNeighborsOfDifferentColor(pos, color){
         let listNeighbors = this._getTileNeighbors(pos);        
         return listNeighbors.filter((element) => element != undefined && 
-                                    this._grid[element.position.x][element.position.y].color != color );
+                                    this._grid[element.position.x][element.position.y].color.code != color );
     }
 
     // check if board is all full
     isFull(){
         return this._activeTiles.length == this._dimension*this._dimension;
     }
-}
 
+    // convert this board as html dom
+    toHtml(){
+        let res = "<table class=\"game-grid\" border=1><tbody>";
+        for (let i = 0; i < this.grid.length; i++) {
+            res += "<tr>";
+            for (let j = 0; j < this.grid[i].length; j++) {
+                res += this.grid[i][j].toHtml();
+            }
+            res += "</tr>";
+        }
+        res += "</tbody></table>";
+        return res;
+    }
+}
 
 // ------------ Class : Tile ------------ //
 class Tile{
@@ -188,6 +203,9 @@ class Tile{
     // ----- setters ----- //
     set color(value) { this._color = value; }    
     set position(value) { this._position = value; }
+
+    // ------ methods ----- //
+    toHtml(){ return "<td class=\"game-tile\" "+this._color.styleBg()+"></td>"} 
 }
 
 // ------------ Class : Position ------------ //
@@ -216,7 +234,7 @@ class Color{
     _rank;
     _code_HEX;
     // ----- constructors ----- //
-    constructor(rank, code_HEX){
+    constructor(rank, code){
         this._rank = rank;
         this._code = code;
     }
@@ -227,6 +245,10 @@ class Color{
     // ----- setters ----- //
     set rank(value) { this._rank = value; }    
     set code(value) { this._code = value; }
+
+    toHtml(){ return "<span style=\"color:"+this.code+"\">"+this.code+"( rank°"+this.rank+" )</span>";}
+    styleBg(){ return "style=\"background-color:"+this.code+"\"";}
+    styleColor(){ return "style=\"color:"+this.code+"\"";}
 }
 
 exports.Board = Board;

@@ -1,5 +1,3 @@
-const { exit } = require("process");
-const { runInThisContext } = require("vm");
 
 // ------------ COLOR_HEX : List of colors ------------ //
 const COLOR_HEX = ["RED", "ORANGE", "YELLOW", "GREEN", "BLUE", "INDIGO", "VIOLET", "PURPLE"];

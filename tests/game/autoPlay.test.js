@@ -10,10 +10,10 @@ const gameInstance = require("../../public/classes/Game").gameInstance;
 
 // ---> inital Data object
 const colorsGrid = [
-    ["RED",     "ORANGE",   "RED",      "BlUE",     "RED",      "ORANGE"],
+    ["RED",     "ORANGE",   "RED",      "BLUE",     "RED",      "ORANGE"],
     ["BLUE",    "RED",      "BLUE",     "ORANGE",   "BLUE",     "ORANGE"],
     ["BLUE",    "BLUE",     "ORANGE",   "BLUE",     "BLUE",     "BLUE"],
-    ["BLUE",    "ORANGE",   "RED",      "BlUE",     "RED",      "ORANGE"],
+    ["BLUE",    "ORANGE",   "RED",      "BLUE",     "RED",      "ORANGE"],
     ["BLUE",    "ORANGE",   "RED",      "ORANGE",   "ORANGE",   "ORANGE"],
     ["RED",     "BLUE",     "RED",      "ORANGE",   "BLUE",     "RED"],
 ];
@@ -34,25 +34,18 @@ describe('game as in given example', function() {
     
     const board = new Board(initalData.dimension, initalData.nbColors, initalData.grid);
     game.board = board;
+    //game.startGame();
 
-    it(`first set should include the upper left tile`, function() {
-        let position = board.grid[0][0].position;
-        expect(board.activeTiles.includes(position));
+    it(`The board has one single color`, function() {
+        // at the end, the game board is colored all in one color only.
+        game.startGame();
+
+        let i = Math.floor(Math.random()*board.dimension);
+        let j = Math.floor(Math.random()*board.dimension);
+        //console.log("i,j : ", i, j);
+        let i_color = COLOR_HEX.indexOf(board.grid[i][j].color.code);
+        console.log("colors : ", board);
+        expect(i_color == board.activeColor.code);
     });   
-
-    it(`first move should decide on "BLUE" color`, function() {
-        assert.deepEqual(board.move().code, "BLUE");
-    });
-
-    it(`second move should decide on "ORANGE" color`, function() {
-        assert.deepEqual(board.move().code, "ORANGE");
-    });
-    
-    it(`third move should decide on "RED" color`, function() {
-        assert.deepEqual(board.move().code, "RED");
-    });
-    it(`fourth move should decide on "BLUE" color`, function() {
-        assert.deepEqual(board.move().code, "BLUE");
-    });
 
 });  
